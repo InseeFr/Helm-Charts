@@ -6,15 +6,15 @@ dependencies:
   - name: pogues
     condition: pogues.enabled
     version: 0.0.1
-    repository: "file://../pogues"
+    repository: "https://inseefr.github.io/Helm-Charts"
   - name: eno-ws
     condition: eno-ws.enabled
     version: 0.1.0
-    repository: "file://../eno-ws"
+    repository: "https://inseefr.github.io/Helm-Charts"
   - name: ddi-access-services
     condition: ddi-access-services.enabled
     version: 0.1.0
-    repository: "file://../ddi-access-services"
+    repository: "https://inseefr.github.io/Helm-Charts"
   - name: queen
     condition: queen.enabled
     version: 0.3.0
