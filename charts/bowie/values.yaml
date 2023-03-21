@@ -75,17 +75,31 @@ pogues:
       database: Pogues
 
 eno-ws:
-  image:
-    repository: inseefr/eno-ws
-    pullPolicy: IfNotPresent
-    tag: ""
-
-  ingress:
-    hosts:
-      - host: eno-example.local
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
+  enoxml:
+    image:
+      repository: inseefr/eno-ws
+      pullPolicy: IfNotPresent
+      tag: ""
+    ingress:
+      hosts:
+        - host: eno-xml-example.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+  enojava:
+    enable: true
+    image:
+      repository: inseefr/eno-ws
+      pullPolicy: IfNotPresent
+      tag: ""
+    env:
+      ENO_LEGACY_WS_URL: "https://eno-xml-example.local"
+    ingress:
+      hosts:
+        - host: eno-java-example.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
 
 ddi-access-services:
   image:
