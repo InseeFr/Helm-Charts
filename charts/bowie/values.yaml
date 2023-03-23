@@ -87,7 +87,7 @@ eno-ws:
             - path: /
               pathType: ImplementationSpecific
   enojava:
-    enable: true
+    enabled: true
     image:
       repository: inseefr/eno-ws
       pullPolicy: IfNotPresent
