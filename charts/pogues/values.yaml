@@ -194,7 +194,7 @@ postgresql:
         command:
           [
             "wget",
-            "https://loichenninger.minio.lab.sspcloud.fr/backup.sql",
+            "https://raw.githubusercontent.com/InseeFr/Bowie/main/deploiement/Pogues/pogues-bdd-backup.sql",
             "--output-document=/import/backup.sql",
           ]
         volumeMounts:
