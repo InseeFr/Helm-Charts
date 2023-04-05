@@ -7,7 +7,7 @@ pogues:
 
     ingress:
       hosts:
-        - host: chart-example.local
+        - host: POGUES_UI.domain.com
           paths:
             - path: /
               pathType: ImplementationSpecific
@@ -16,7 +16,7 @@ pogues:
             - POGUES_UI.domain.com
 
     env:
-      API_URL: "https://chart-example-api.local/api"
+      API_URL: "https://POGUES_API.domain.com/api"
 
   api:
     image:
@@ -26,7 +26,7 @@ pogues:
 
     ingress:
       hosts:
-        - host: chart-example-api.local
+        - host: POGUES_API.domain.com
           paths:
             - path: /
               pathType: ImplementationSpecific
@@ -39,7 +39,7 @@ pogues:
       log:
         configuration: classpath:log4j2.xml
       api:
-        host: chart-example-api.local
+        host: POGUES_API.domain.com
         name: ""
         scheme: https
       persistence:
@@ -54,7 +54,7 @@ pogues:
         user: Utilisateurs_Pogues
       remote:
         metadata:
-          url: https://ddi-access-services-example.local/api
+          url: https://DDI_ACCESS_SERVICE.domain.com/api
         stromae:
           host: ""
           vis:
@@ -62,12 +62,12 @@ pogues:
           orbeon:
             host: ""
         queen:
-          host: https://queen-sandbox.local
+          host: https://QUEEN_UI.domain.com
           vis:
             path: queen/visualize?questionnaire=
         stromaev2:
           vis:
-            url: https://stromae-v2-sandbox.local/visualize?questionnaire=
+            url: https://STROMAE_V2.domain.com/visualize?questionnaire=
         eno:
           host: eno-example.local
           scheme: https
@@ -88,7 +88,7 @@ eno-ws:
       tag: 1.6.1
     ingress:
       hosts:
-        - host: eno-xml-example.local
+        - host: ENO_XML.domain.com
           paths:
             - path: /
               pathType: ImplementationSpecific
@@ -102,10 +102,10 @@ eno-ws:
       pullPolicy: IfNotPresent
       tag: ""
     env:
-      ENO_LEGACY_WS_URL: "https://eno-xml-example.local"
+      ENO_LEGACY_WS_URL: https://ENO_XML.domain.com
     ingress:
       hosts:
-        - host: eno-java-example.local
+        - host: ENO_JAVA.domain.com
           paths:
             - path: /
               pathType: ImplementationSpecific
@@ -118,7 +118,7 @@ ddi-access-services:
 
   ingress:
     hosts:
-      - host: ddi-access-services-example.local
+      - host: DDI_ACCESS_SERVICE.domain.com
         paths:
           - path: /
             pathType: ImplementationSpecific
@@ -132,7 +132,7 @@ ddi-access-services:
     # Log4J configuration File
     fr.insee.rmespogbo.log.configuration=log4j2.xml
     # Swagger host
-    fr.insee.rmes.api.host = ddi-access-services-example.local
+    fr.insee.rmes.api.host = DDI_ACCESS_SERVICE.domain.com
     fr.insee.rmes.api.name= /api
     fr.insee.rmes.api.scheme= https
     # Metadata service
@@ -159,7 +159,6 @@ queen:
         annotations:
           kubernetes.io/ingress.class: nginx
         hosts:
-          - host: queen-sandbox.local
             paths:
               - path: /
                 pathType: ImplementationSpecific
@@ -167,11 +166,12 @@ queen:
           - hosts:
               - queen-sandbox.local
       env:
-        QUEEN_URL: https://queen-sandbox.local
         authenticationType: NONE
+        - host: QUEEN_UI.domain.com
       tls:
         - hosts:
             - QUEEN_UI.domain.com
+      QUEEN_URL: https://QUEEN_UI.domain.com
 
 stromae-v2:
   ui:
@@ -186,7 +186,6 @@ stromae-v2:
         annotations:
           kubernetes.io/ingress.class: nginx
         hosts:
-          - host: stromae-v2-sandbox.local
             paths:
               - path: /
                 pathType: ImplementationSpecific
@@ -195,5 +194,6 @@ stromae-v2:
               - stromae-v2-sandbox.local
       env:
         AUTHENTICATION_TYPE: NONE        - hosts:
+        - host: STROMAE_V2.domain.com
             - STROMAE_V2.domain.com
     env:
