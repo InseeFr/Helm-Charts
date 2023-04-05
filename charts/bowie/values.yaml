@@ -3,7 +3,7 @@ pogues:
     image:
       repository: inseefr/pogues
       pullPolicy: IfNotPresent
-      tag: ""
+      tag: 1.4.1
 
     ingress:
       hosts:
@@ -19,7 +19,7 @@ pogues:
     image:
       repository: inseefr/pogues-back-office
       pullPolicy: IfNotPresent
-      tag: ""
+      tag: 4.0.5
 
     ingress:
       hosts:
@@ -79,7 +79,7 @@ eno-ws:
     image:
       repository: inseefr/eno-ws
       pullPolicy: IfNotPresent
-      tag: ""
+      tag: 1.6.1
     ingress:
       hosts:
         - host: eno-xml-example.local
@@ -105,7 +105,7 @@ ddi-access-services:
   image:
     repository: inseefr/ddi-access-services
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: 1.0.6
 
   ingress:
     hosts:
@@ -160,12 +160,12 @@ queen:
 
 stromae-v2:
   ui:
+      tag: 2.2.14
       enabled: true
       nameOverride: stromae-ui
       replicaCount: 1
       image:
         repository: inseefr/stromae
-        tag: ""
       ingress:
         enabled: true
         annotations:
