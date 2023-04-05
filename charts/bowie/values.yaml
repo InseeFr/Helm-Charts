@@ -148,52 +148,47 @@ ddi-access-services:
 
 queen:
   ui:
+    enabled: true
+    nameOverride: queen-ui
+    replicaCount: 1
+    image:
+      repository: inseefr/queen
+      tag: 0.10.11
+    ingress:
       enabled: true
-      nameOverride: queen-ui
-      replicaCount: 1
-      image:
-        repository: inseefr/queen
-        tag: ""
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: nginx
-        hosts:
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - queen-sandbox.local
-      env:
-        authenticationType: NONE
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
         - host: QUEEN_UI.domain.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
       tls:
         - hosts:
             - QUEEN_UI.domain.com
+    env:
       QUEEN_URL: https://QUEEN_UI.domain.com
+      authenticationType: NONE
 
 stromae-v2:
   ui:
+    enabled: true
+    nameOverride: stromae-ui
+    replicaCount: 1
+    image:
+      repository: inseefr/stromae
       tag: 2.2.14
+    ingress:
       enabled: true
-      nameOverride: stromae-ui
-      replicaCount: 1
-      image:
-        repository: inseefr/stromae
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: nginx
-        hosts:
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - stromae-v2-sandbox.local
-      env:
-        AUTHENTICATION_TYPE: NONE        - hosts:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
         - host: STROMAE_V2.domain.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
             - STROMAE_V2.domain.com
     env:
+      AUTHENTICATION_TYPE: NONE
