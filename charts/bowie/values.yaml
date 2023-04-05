@@ -11,6 +11,9 @@ pogues:
           paths:
             - path: /
               pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - POGUES_UI.domain.com
 
     env:
       API_URL: "https://chart-example-api.local/api"
@@ -27,6 +30,9 @@ pogues:
           paths:
             - path: /
               pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - POGUES_API.domain.com
 
     environment:
       ssl: false
@@ -86,6 +92,9 @@ eno-ws:
           paths:
             - path: /
               pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - ENO_XML.domain.com
   enojava:
     enabled: true
     image:
@@ -113,6 +122,9 @@ ddi-access-services:
         paths:
           - path: /
             pathType: ImplementationSpecific
+    tls:
+      - hosts:
+          - DDI_ACCESS_SERVICE.domain.com
 
   properties: |-
     # SSL
@@ -157,6 +169,9 @@ queen:
       env:
         QUEEN_URL: https://queen-sandbox.local
         authenticationType: NONE
+      tls:
+        - hosts:
+            - QUEEN_UI.domain.com
 
 stromae-v2:
   ui:
@@ -179,4 +194,6 @@ stromae-v2:
           - hosts:
               - stromae-v2-sandbox.local
       env:
-        AUTHENTICATION_TYPE: NONE
+        AUTHENTICATION_TYPE: NONE        - hosts:
+            - STROMAE_V2.domain.com
+    env:
