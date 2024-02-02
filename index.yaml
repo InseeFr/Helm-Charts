@@ -491,6 +491,15 @@ entries:
     version: 0.1.1
   eno-ws:
   - apiVersion: v2
+    created: "2024-02-02T11:11:04.39027606Z"
+    description: A Eno-WS Helm chart for Kubernetes
+    digest: 74bdcf55ad0a528e766a00f8993fda176680108b918b61e573e321150ab21089
+    name: eno-ws
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/eno-ws-0.2.2/eno-ws-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     appVersion: 2.4.1
     created: "2023-03-24T15:38:19.455584972Z"
     description: A Eno-WS Helm chart for Kubernetes
@@ -1395,4 +1404,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-31T16:07:05.005780796Z"
+generated: "2024-02-02T11:11:04.390385904Z"
