@@ -85,5 +85,4 @@ tolerations: []
 
 affinity: {}
 
-env:
-  toto: titi
+env: {}
