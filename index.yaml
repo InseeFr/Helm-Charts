@@ -489,6 +489,17 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/ddi-access-services-0.1.1/ddi-access-services-0.1.1.tgz
     version: 0.1.1
+  drama-queen:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-03-29T10:20:58.175475171Z"
+    description: A Helm chart for Kubernetes
+    digest: f415a8742fe60484e139399ab0e4f11da123913e8c0cab37edff4150cf6a0b08
+    name: drama-queen
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/drama-queen-0.1.0/drama-queen-0.1.0.tgz
+    version: 0.1.0
   eno-ws:
   - apiVersion: v2
     created: "2024-02-02T13:30:45.257523081Z"
@@ -1413,4 +1424,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-02-02T13:30:45.257681167Z"
+generated: "2024-03-29T10:20:58.175652801Z"
