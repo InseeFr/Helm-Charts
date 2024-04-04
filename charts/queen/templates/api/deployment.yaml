@@ -32,8 +32,9 @@ spec:
             {{- toYaml .Values.api.securityContext | nindent 12 }}
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
-          {{- if .Values.postgresql.enabled }}
+          {{- if or .Values.postgresql.enabled .Values.api.vaultStaticSecret.enabled }}
           env:
+            {{- if .Values.postgresql.enabled }}
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -43,45 +44,49 @@ spec:
               value:  {{ printf "jdbc:postgresql://%s:%.0f/%s" (include "queen.postgresql.fullname" .) .Values.postgresql.auth.port .Values.postgresql.auth.database | quote }}
             - name: SPRING_DATASOURCE_USERNAME
               value: {{ .Values.postgresql.auth.username | quote}}
+            {{- end }}
+            {{- if .Values.api.vaultStaticSecret.enabled }}
+            {{- range $key, $value := .Values.api.vaultStaticSecret.config }}
+            - name:  {{ $value.nomEnv }}
+              valueFrom:
+                secretKeyRef: 
+                  name: {{ $value.secretName }}
+                  key:  {{ $value.keyUsed }}
+            {{- end }}
+            {{- end }}
           {{- end }}
-          {{- if and .Values.api.enabled .Values.api.env }}
+
+          {{- if or .Values.api.env .Values.api.sealedSecret.enabled }}
           envFrom:
+            {{- if .Values.api.env }}
             - configMapRef:
                 name: {{ template "queen.api.fullname" . }}
+            {{- end }}
+            {{- if .Values.api.sealedSecret.enabled }}            
+            {{- range $key, $value := .Values.api.sealedSecret.config }}
+            - secretRef:
+                name: {{ $key }}
+            {{- end }}
+            {{- end }}
           {{- end }}
+
           ports:
-            - name: http
-              containerPort: 8080
+            - name: container-port
+              containerPort: {{ .Values.api.container.port }}
               protocol: TCP
+          
+          {{- with .Values.api.livenessProbe }}
           livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /api/healthcheck
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 2
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.api.readinessProbe }}
           readinessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /api/healthcheck
-              port: http
-              scheme: HTTP
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.api.startupProbe }}
           startupProbe:
-            initialDelaySeconds: 15
-            failureThreshold: 30
-            httpGet:
-              path: /api/healthcheck
-              port: http
-              scheme: HTTP
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
       {{- with .Values.api.nodeSelector }}

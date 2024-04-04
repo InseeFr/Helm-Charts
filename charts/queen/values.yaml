@@ -126,6 +126,9 @@ api:
     # runAsNonRoot: true
     # runAsUser: 1000
 
+  container:
+    port: 8080
+
   service:
     type: ClusterIP
     port: 80
@@ -146,6 +149,36 @@ api:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+
+  livenessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /api/healthcheck
+      port: 8080
+      scheme: HTTP
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 2
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /api/healthcheck
+      port: 8080
+      scheme: HTTP
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  startupProbe:
+    initialDelaySeconds: 15
+    failureThreshold: 30
+    httpGet:
+      path: /api/healthcheck
+      port: 8080
+      scheme: HTTP
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
 
   resources:
     {}
@@ -172,6 +205,41 @@ api:
   tolerations: []
 
   affinity: {}
+
+  sealedSecret:
+    enabled: false
+    # env variables to set (with ciphered values)
+    config: {}
+    #   sealed-secret1:
+    #     namespace: "namespace-name"
+    #     secretEnv:
+    #       password: "ciphered value"
+    #   sealed-secret2:
+    #     namespace: "namespace-name"
+    #     secretEnv:
+    #       token1:
+    #       token2:
+
+  vaultStaticSecret:
+    enabled: false
+    # -- Configuration retrieving vault secrets
+    config: {}
+    #   nameVaultStaticSecret1:
+    #     mount: "secrets-env1"
+    #     path: ""
+    #     secretName: ""
+    #     refreshAfter: "30s"
+    #     vaultAuthRef: "namespaceName/namespaceName"
+    #     nomEnv: ""
+    #     keyUsed: ""
+    #   nameVaultStaticSecret2:
+    #     mount: "secrets-env1"
+    #     path: ""
+    #     secretname: ""
+    #     refreshAfter: "30s"
+    #     vaultAuthRef: ""
+    #     nomEnv: ""
+    #     keyUsed: ""
 
   env: {}
 
@@ -206,3 +274,4 @@ postgresql:
     password: userPassword
     postgresPassword: postgresPassword
     database: database
+    port: 5432
