@@ -842,6 +842,16 @@ entries:
   platine-access:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-04-05T13:56:01.286041774Z"
+    description: A Helm chart for Platine Access UI and API
+    digest: 25b5d4db4d272dab49f4fd28406964a7d8123721d2ede341439d25b88026a683
+    name: platine-access
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/platine-access-0.1.0/platine-access-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-06-26T15:43:42.571102117Z"
     description: A Helm chart for Platine Access UI and API
     digest: 3bad7c69c3b8c6392bbb8fb3b669d38151eef528dc9d0e7e23630f669b3c5f0f
@@ -1454,4 +1464,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-05T13:34:22.899644013Z"
+generated: "2024-04-05T13:56:01.286177687Z"
