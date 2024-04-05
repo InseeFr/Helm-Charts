@@ -781,6 +781,21 @@ entries:
   pearl:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-04-05T13:34:22.89950813Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.9
+    description: A Helm chart for Pearl API, UI and DB
+    digest: 6f31a24bb4af831c10835a2ae53556552d4965cd46a9339bb7d2bd72f3a88ddd
+    name: pearl
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/pearl-0.2.0/pearl-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-06-26T21:08:35.670460906Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1439,4 +1454,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-04T22:37:34.607199791Z"
+generated: "2024-04-05T13:34:22.899644013Z"
