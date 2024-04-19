@@ -9,9 +9,9 @@ spec:
   type: {{ .Values.api.service.type }}
   ports:
     - port: {{ .Values.api.service.port }}
-      targetPort: http
+      targetPort: container-port
       protocol: TCP
-      name: http
+      name: service-port
   selector: 
     {{- include "stromae.api.selectorLabels" . | nindent 4 }}
 {{- end }}
