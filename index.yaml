@@ -760,6 +760,16 @@ entries:
   my-surveys:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-05-17T15:13:50.211683554Z"
+    description: A Helm chart for Platine My Surveys
+    digest: 06e179030548b24dd6fdd1ca6a7d72d6988c74ffda5cab57d0a7e40f15e8c3e6
+    name: my-surveys
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/my-surveys-0.2.2/my-surveys-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-05-17T09:39:54.177809915Z"
     description: A Helm chart for Platine-My-Surveys
     digest: 63c2e7027f6625b530c5f6f9c40eaa8561ba051cdc2da2d8d60b630daa0d315b
@@ -1534,4 +1544,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-17T09:39:54.177995183Z"
+generated: "2024-05-17T15:13:50.211879728Z"
