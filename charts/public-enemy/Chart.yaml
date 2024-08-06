@@ -9,5 +9,5 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
 
 type: application
-version: 0.5.10
+version: 0.5.11
 appVersion: "2.0.0"
