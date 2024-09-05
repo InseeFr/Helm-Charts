@@ -1,0 +1,293 @@
+# Default values for platine-management.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+ui:
+  enabled: false
+  replicaCount: 1
+
+  image:
+    repository: inseefr/meshuggah
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  # podAnnotations: {} need to be injected in deployment-ui
+
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    enabled: false
+    className: ""
+    annotations:
+      {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  env: {}
+
+api:
+  enabled: true
+  replicaCount: 1
+
+  image:
+    repository: inseefr/meshuggah-api
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  # podAnnotations: {} need to be injected in deployment-api
+
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  container:
+    port: 8080
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    enabled: false
+    className: ""
+    annotations:
+      {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  # check if pod is alive
+  # if problem with the pod itself, restart it
+  livenessProbe:
+    {}
+    # failureThreshold: 3
+    # httpGet:
+    #   path: /health/liveness
+    #   port: http
+    #   scheme: HTTP
+    # initialDelaySeconds: 15
+    # periodSeconds: 10
+    # successThreshold: 1
+    # timeoutSeconds: 1
+
+  # check if pod can accept traffic
+  # if pod cannot accept traffic because of external system failures (db down for example)
+  # do not forward traffic to the pod until pod is ready again
+  readinessProbe:
+    {}
+    # failureThreshold: 3
+    # httpGet:
+    #   path: /health/readiness
+    #   port: http
+    #   scheme: HTTP
+    # initialDelaySeconds: 15
+    # periodSeconds: 10
+    # successThreshold: 1
+    # timeoutSeconds: 1
+
+  # like liveness, but at startup time, it gives the opportunity to wait a little longer until the pod is ready
+  startupProbe:
+    {}
+    # failureThreshold: 30
+    # httpGet:
+    #   path: /health/liveness
+    #   port: http
+    #   scheme: HTTP
+    # initialDelaySeconds: 15
+    # periodSeconds: 10
+    # successThreshold: 1
+    # timeoutSeconds: 1
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  sealedSecret:
+    enabled: false
+    # env variables to set (with ciphered values)
+    config: {}
+    #   sealed-secret1:
+    #     namespace: "namespace-name"
+    #     secretEnv:
+    #       password: "ciphered value"
+    #   sealed-secret2:
+    #     namespace: "namespace-name"
+    #     secretEnv:
+    #       token1:
+    #       token2:
+
+  vaultStaticSecret:
+    enabled: false
+    # -- Configuration retrieving vault secrets
+    config: {}
+    #   nameVaultStaticSecret1:
+    #     mount: "secrets-env1"
+    #     path: ""
+    #     secretName: ""
+    #     refreshAfter: "30s"
+    #     vaultAuthRef: "namespaceName/namespaceName"
+    #     nomEnv: ""
+    #     keyUsed: ""
+    #   nameVaultStaticSecret2:
+    #     mount: "secrets-env1"
+    #     path: ""
+    #     secretname: ""
+    #     refreshAfter: "30s"
+    #     vaultAuthRef: ""
+    #     nomEnv: ""
+    #     keyUsed: ""
+
+  env: {}
+
+  metrics:
+    enabled: false
+
+    service:
+      annotations:
+        prometheus.io/scrape: "false"
+        prometheus.io/port: "{{ .Values.metrics.service.ports.metrics }}"
+        prometheus.io/path: "/metrics"
+      type: ClusterIP
+      ports:
+        metrics: 9216
+
+    serviceMonitor:
+      enabled: false
+      namespace: ""
+      interval: 30s
+      scrapeTimeout: ""
+      labels: {}
+      selector: {}
+      honorLabels: false
+      jobLabel: ""
+
+postgresql:
+  enabled: false
+  global:
+    postgresql:
+      service:
+        ports:
+          postgresql: 5432
+  fullnameOverride: ""
+  nameOverride: ""
+  auth:
+    username: username
+    password: userPassword
+    postgresPassword: postgresPassword
+    database: database

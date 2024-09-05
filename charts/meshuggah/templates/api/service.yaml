@@ -1,0 +1,17 @@
+{{- if .Values.api.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "meshuggah.api.fullname" . }}
+  labels: 
+    {{- include "meshuggah.api.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.api.service.type }}
+  ports:
+    - port: {{ .Values.api.service.port }}
+      targetPort: container-port
+      protocol: TCP
+      name: service-port
+  selector: 
+    {{- include "meshuggah.api.selectorLabels" . | nindent 4 }}
+{{- end }}
