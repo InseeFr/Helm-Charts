@@ -716,6 +716,22 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/massive-attack-0.1.0/massive-attack-0.1.0.tgz
     version: 0.1.0
+  meshuggah:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-09-05T09:48:10.32081202Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.9
+    description: A Helm chart for Meshuggah API and DB
+    digest: 37ef38637107791db1e4cb4d261a3f88b2038ec7caaa6404c2f6ac471f8c80d9
+    name: meshuggah
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/meshuggah-0.1.0/meshuggah-0.1.0.tgz
+    version: 0.1.0
   moog:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -1574,4 +1590,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-06T14:52:12.634425905Z"
+generated: "2024-09-05T09:48:10.321001977Z"
