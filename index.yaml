@@ -750,6 +750,16 @@ entries:
   moog:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-10-10T08:11:23.622168124Z"
+    description: A Helm chart for Moog
+    digest: 47b8e2eec1c0db166633e72cffade561e76d2b544b430d348304e3a36eaaf63a
+    name: moog
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/moog-0.2.0/moog-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-05-17T09:28:03.875131952Z"
     description: A Helm chart for Moog
     digest: 3e0199994be26c4f3c4ba4325b7bd835410231d66957656a532fcf445497c471
@@ -789,6 +799,16 @@ entries:
     - https://github.com/InseeFr/Helm-Charts/releases/download/moog-0.0.1/moog-0.0.1.tgz
     version: 0.0.1
   my-surveys:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-10-10T08:11:23.783419641Z"
+    description: A Helm chart for Platine My Surveys
+    digest: 7ae7a4b1a1d92ac98f25590524cc701f0784441cc8225fd50631470efd31649e
+    name: my-surveys
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/my-surveys-0.3.0/my-surveys-0.3.0.tgz
+    version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2024-05-17T15:13:50.211683554Z"
@@ -913,6 +933,16 @@ entries:
   platine-access:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-10-10T08:11:23.874736544Z"
+    description: A Helm chart for Platine Access UI and API
+    digest: 93c23416f5edd7f45586cae5ca7887ad13878afc5eeb436898409725083f185f
+    name: platine-access
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/platine-access-0.2.0/platine-access-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-04-05T13:56:01.286041774Z"
     description: A Helm chart for Platine Access UI and API
     digest: 25b5d4db4d272dab49f4fd28406964a7d8123721d2ede341439d25b88026a683
@@ -932,6 +962,21 @@ entries:
     - https://github.com/InseeFr/Helm-Charts/releases/download/platine-access-0.0.2/platine-access-0.0.2.tgz
     version: 0.0.2
   platine-management:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-10-10T08:11:23.989197694Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.9
+    description: A Helm chart for Platine Management API, UI and DB
+    digest: 2cacb3596e1ca663dc4aca4ece5c52901fbc6dd80d371296f65476ba713d5123
+    name: platine-management
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/platine-management-0.9.0/platine-management-0.9.0.tgz
+    version: 0.9.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2024-04-05T14:47:02.602536072Z"
@@ -1442,6 +1487,21 @@ entries:
   stromae-v2:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-10-10T08:11:24.106576357Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.9
+    description: A Helm chart for Stromae API, UI and DB
+    digest: 6169b943a515bc2706831854d5928d5b9623fb420bef56dcfce63c536140d34e
+    name: stromae-v2
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.8.0/stromae-v2-0.8.0.tgz
+    version: 0.8.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-05-24T12:31:02.064350265Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1605,4 +1665,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-10T08:08:07.313253188Z"
+generated: "2024-10-10T08:11:24.106827243Z"
