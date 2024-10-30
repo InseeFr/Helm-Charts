@@ -3,5 +3,5 @@ name: platine-access
 description: A Helm chart for Platine Access UI and API
 
 type: application
-version: 0.2.0
+version: 0.2.1
 appVersion: "1.16.0"
