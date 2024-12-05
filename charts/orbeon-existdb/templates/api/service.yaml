@@ -1,0 +1,17 @@
+{{- if .Values.api.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "orbeon-existdb.api.fullname" . }}
+  labels: 
+    {{- include "orbeon-existdb.api.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.api.service.type }}
+  ports:
+    - port: {{ .Values.api.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector: 
+    {{- include "orbeon-existdb.api.selectorLabels" . | nindent 4 }}
+{{- end -}}

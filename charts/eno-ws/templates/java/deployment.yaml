@@ -5,20 +5,27 @@ metadata:
   name: {{ include "eno-ws.enojava.fullname" . }}
   labels:
     {{- include "eno-ws.enojava.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.enojava.deploymentAnnotations | nindent 4 }}
 spec:
   {{- if not .Values.enojava.autoscaling.enabled }}
   replicas: {{ .Values.enojava.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "eno-ws.enojava.selectorLabels" . | nindent 6 }}
+      {{- include "eno-ws.enojava.selectorLabels" . | nindent 6 }}  
+  {{- with  .Values.deploymentStrategy }}
+  strategy: 
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
-      {{- with .Values.enojava.podAnnotations }}
       annotations:
         {{- if .Values.enojava.env }}
         checksum/config: {{ include (print $.Template.BasePath "/java/configmap.yaml") . | sha256sum }}
         {{- end }}
+      {{- with .Values.enojava.podAnnotations }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
         {{- include "eno-ws.enojava.selectorLabels" . | nindent 8 }}
@@ -27,18 +34,16 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "eno-ws.enojava.serviceAccountName" . }}
+      {{- with .Values.enojava.podSecurityContext }} # S'il y a des values, ça écrit "securityContext:" et la suite, sinon ça ne met rien 
       securityContext:
-        {{- toYaml .Values.enojava.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.enojava.securityContext | nindent 12 }}
           image: "{{ .Values.enojava.image.repository }}:{{ .Values.enojava.image.tag }}"
           imagePullPolicy: {{ .Values.enojava.image.pullPolicy }}
-          env:
-            - name: JAVA_OPTS
-              value: '-XX:+UseParallelGC -XX:MaxRAMPercentage=75'
           {{- if .Values.enojava.env }}
           envFrom:
             - configMapRef:
@@ -46,8 +51,16 @@ spec:
           {{- end }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.enojava.container.port }}
               protocol: TCP
+          {{- with .Values.enojava.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.enojava.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.enojava.resources | nindent 12 }}
       {{- with .Values.enojava.nodeSelector }}

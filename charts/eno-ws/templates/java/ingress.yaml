@@ -1,4 +1,5 @@
 {{- if and .Values.enojava.enabled .Values.enojava.ingress.enabled}}
+{{- $basePath := . }}
 {{- $fullName := include "eno-ws.enojava.fullname" . -}}
 {{- $svcPort := .Values.enojava.service.port -}}
 {{- if and .Values.enojava.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
@@ -20,7 +21,7 @@ metadata:
     {{- include "eno-ws.enojava.labels" . | nindent 4 }}
   {{- with .Values.enojava.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+    {{- include "render-value" (dict "value" . "context" $basePath ) | nindent 4 }}
   {{- end }}
 spec:
   {{- if and .Values.enojava.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
@@ -31,14 +32,14 @@ spec:
     {{- range .Values.enojava.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ . | quote }}
+        - {{ include "render-value" (dict "value" . "context" $basePath ) | quote }}
         {{- end }}
-      secretName: {{ .secretName }}
+      secretName: {{ .secretName | default (printf "%s-cert" $fullName) }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.enojava.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
       http:
         paths:
           {{- range .paths }}

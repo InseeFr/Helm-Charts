@@ -9,7 +9,7 @@ spec:
   type: {{ .Values.enojava.service.type }}
   ports:
     - port: {{ .Values.enojava.service.port }}
-      targetPort: 8080
+      targetPort: http
       protocol: TCP
       name: http
   selector:

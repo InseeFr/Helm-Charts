@@ -1,10 +1,10 @@
-{{- if and .Values.enoxml.enabled .Values.enoxml.ingress.enabled}}
+{{- if .Values.api.ingress.enabled -}}
 {{- $basePath := . }}
-{{- $fullName := include "eno-ws.enoxml.fullname" . -}}
-{{- $svcPort := .Values.enoxml.service.port -}}
-{{- if and .Values.enoxml.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.enoxml.ingress.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.enoxml.ingress.annotations "kubernetes.io/ingress.class" .Values.enoxml.ingress.className}}
+{{- $fullNameApi := include "orbeon-existdb.api.fullname" . -}}
+{{- $apiSvcPort := .Values.api.service.port -}}
+{{- if and .Values.api.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.api.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.api.ingress.annotations "kubernetes.io/ingress.class" .Values.uiingress.className}}
   {{- end }}
 {{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -16,46 +16,46 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullNameApi }}
   labels:
-    {{- include "eno-ws.enoxml.labels" . | nindent 4 }}
-  {{- with .Values.enoxml.ingress.annotations }}
+    {{- include "orbeon-existdb.api.labels" . | nindent 4 }}
+  {{- with .Values.api.ingress.annotations }}
   annotations:
     {{- include "render-value" (dict "value" . "context" $basePath ) | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.enoxml.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  ingressClassName: {{ .Values.enoxml.ingress.className }}
+  {{- if and .Values.api.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.api.ingress.className }}
   {{- end }}
-  {{- if .Values.enoxml.ingress.tls }}
+  {{- if .Values.api.ingress.tls }}
   tls:
-    {{- range .Values.enoxml.ingress.tls }}
+    {{- range .Values.api.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ include "render-value" (dict "value" . "context" $basePath ) | quote }}
         {{- end }}
-      secretName: {{ .secretName | default (printf "%s-cert" $fullName) }}
+      secretName: {{ .secretName | default (printf "%s-cert" $fullNameApi) }}
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.enoxml.ingress.hosts }}
+    {{- range .Values.api.ingress.hosts }}
     - host: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
       http:
         paths:
           {{- range .paths }}
           - path: {{ .path }}
             {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
-            pathType: Prefix
+            pathType: {{ .pathType }}
             {{- end }}
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: {{ $fullNameApi }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ $apiSvcPort }}
               {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              serviceName: {{ $fullNameApi }}
+              servicePort: {{ $apiSvcPort }}
               {{- end }}
           {{- end }}
     {{- end }}
