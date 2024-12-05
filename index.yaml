@@ -512,6 +512,15 @@ entries:
     version: 0.1.0
   eno-ws:
   - apiVersion: v2
+    created: "2024-12-05T09:20:09.048424475Z"
+    description: A Eno-WS Helm chart for Kubernetes
+    digest: 8721a9348337532f4032ce56dc643a332a26b478b65532e8c55d09bd29157cf8
+    name: eno-ws
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/eno-ws-0.2.7/eno-ws-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
     created: "2024-02-02T13:30:45.257523081Z"
     description: A Eno-WS Helm chart for Kubernetes
     digest: bb5410c15a8df53041c45b96e9de33b34d4da2dfe78bae0456aed0606f9afc45
@@ -869,6 +878,17 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/my-surveys-0.0.1/my-surveys-0.0.1.tgz
     version: 0.0.1
+  orbeon-existdb:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-12-05T09:20:09.236710893Z"
+    description: A Helm chart for Kubernetes
+    digest: baedb3c8aa763c15fc08883c18e1d918ab12e5f78d56db451e6105105dbba855
+    name: orbeon-existdb
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/orbeon-existdb-0.1.15/orbeon-existdb-0.1.15.tgz
+    version: 0.1.15
   pearl:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -1675,4 +1695,20 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/stromae-v2-0.1.0/stromae-v2-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-30T16:43:28.594028609Z"
+  ui-api-db:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-12-05T09:20:09.444881026Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.1
+    description: A Helm chart for ui-api-db API, UI and DB
+    digest: a7ad3b4a03f00f0410024cc4df2efe83c535c204837197d8cd0ecc50ce6efe85
+    name: ui-api-db
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.8/ui-api-db-0.1.8.tgz
+    version: 0.1.8
+generated: "2024-12-05T09:20:09.445068266Z"
