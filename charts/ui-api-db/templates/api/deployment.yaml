@@ -42,7 +42,9 @@ spec:
           image: postgres:11.6
           command: ['sh', '-c', 
             until pg_isready -h {{ include "ui-api-db.postgresql.fullname" . }} -p {{ .Values.postgresql.auth.port}}; 
-            do echo waiting for database; sleep 2; done;]
+            do echo waiting for database; sleep 2; done;]          
+          resources:
+            {{- toYaml .Values.api.resources | nindent 12 }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
