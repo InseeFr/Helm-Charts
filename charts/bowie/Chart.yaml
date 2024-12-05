@@ -4,7 +4,7 @@ description: A Helm chart for Bowie
 
 type: application
 
-version: 0.2.8
+version: 0.2.9
 
 sources:
   - "https://github.com/InseeFr/Pogues"
@@ -26,26 +26,26 @@ dependencies:
   - name: ui-api-db
     alias: pogues
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.1.8
+    version: 0.1.9
   - name: ui-api-db
     alias: public-enemy
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.1.8
+    version: 0.1.9
   - name: ui-api-db
     alias: queen
-    version: 0.1.8
+    version: 0.1.9
     repository: https://inseefr.github.io/Helm-Charts
   - name: ui-api-db
     alias: stromae-v2
-    version: 0.1.8
+    version: 0.1.9
     repository: https://inseefr.github.io/Helm-Charts
   - name: ui-api-db
     alias: stromae-v3
-    version: 0.1.8
+    version: 0.1.9
     repository: https://inseefr.github.io/Helm-Charts
   - name: ui-api-db
     alias: api-questionnaires
-    version: 0.1.8
+    version: 0.1.9
     repository: https://inseefr.github.io/Helm-Charts
   - name: eno-ws
     repository: https://inseefr.github.io/Helm-Charts
