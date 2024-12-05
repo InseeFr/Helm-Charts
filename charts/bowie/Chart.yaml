@@ -1,60 +1,55 @@
 apiVersion: v2
 name: bowie
-description: Bowie helm-chart
+description: A Helm chart for Bowie
 
-dependencies:
-  - name: pogues
-    condition: pogues.enabled
-    version: 0.3.0
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: eno-ws
-    condition: eno-ws.enabled
-    version: 0.2.1
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: ddi-access-services
-    condition: ddi-access-services.enabled
-    version: 0.1.1
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: queen
-    condition: queen.enabled
-    version: 0.4.0
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: queen
-    alias: queen-v2
-    condition: queen.enabled
-    version: 0.4.0
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: stromae-v2
-    condition: stromae-v2.enabled
-    version: 0.6.0
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: stromae-v2
-    alias: stromae-v3
-    condition: stromae-v3.enabled
-    version: 0.6.0
-    repository: "https://inseefr.github.io/Helm-Charts"
-  - name: drama-queen
-    condition: queen.enabled
-    version: 0.1.3
-    repository: "https://ddecrulle.github.io/helm-charts"
-
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.7
+version: 0.2.8
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-# It is recommended to use it with quotes.
-appVersion: "1.0.1"
+sources:
+  - "https://github.com/InseeFr/Pogues"
+  - "https://github.com/InseeFr/Pogues-Back-Office"
+  - "https://github.com/InseeFr/Eno"
+  - "https://github.com/InseeFr/Eno-WS"
+  - "https://github.com/InseeFr/Public-Enemy"
+  - "https://github.com/InseeFr/Public-Enemy-Back-Office"
+  - "https://github.com/InseeFr/Drama-Queen"
+  - "https://github.com/InseeFr/Stromae/tree/v1-orbeon-2022"
+  - "https://github.com/InseeFr/Stromae-db"
+  - "https://github.com/InseeFr/Stromae/tree/v2-master"
+  - "https://github.com/InseeFrLab/stromae-dsfr"
+  - "https://github.com/InseeFr/Queen-Back-Office"
+
+appVersion: "1.16.0"
+
+dependencies:
+  - name: ui-api-db
+    alias: pogues
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.1.8
+  - name: ui-api-db
+    alias: public-enemy
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.1.8
+  - name: ui-api-db
+    alias: queen
+    version: 0.1.8
+    repository: https://inseefr.github.io/Helm-Charts
+  - name: ui-api-db
+    alias: stromae-v2
+    version: 0.1.8
+    repository: https://inseefr.github.io/Helm-Charts
+  - name: ui-api-db
+    alias: stromae-v3
+    version: 0.1.8
+    repository: https://inseefr.github.io/Helm-Charts
+  - name: ui-api-db
+    alias: api-questionnaires
+    version: 0.1.8
+    repository: https://inseefr.github.io/Helm-Charts
+  - name: eno-ws
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.7
+  - name: orbeon-existdb
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.1.15
