@@ -1,5 +1,5 @@
-{{- if and .Values.enoxml.enabled .Values.enoxml.autoscaling.enabled}}
-apiVersion: autoscaling/v2beta1
+{{- if and .Values.enoxml.autoscaling.enabled .Values.enoxml.enabled}}
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "eno-ws.enoxml.fullname" . }}
@@ -17,12 +17,16 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.enoxml.autoscaling.targetCPUUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.enoxml.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
     {{- if .Values.enoxml.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.enoxml.autoscaling.targetMemoryUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.enoxml.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}

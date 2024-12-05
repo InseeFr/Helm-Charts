@@ -1,10 +1,13 @@
 {{- if .Values.enoxml.enabled -}}
+{{- $basePath := . }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "eno-ws.enoxml.fullname" . }}
   labels:
     {{- include "eno-ws.enoxml.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.enoxml.deploymentAnnotations | nindent 4 }}
 spec:
   {{- if not .Values.enoxml.autoscaling.enabled }}
   replicas: {{ .Values.enoxml.replicaCount }}
@@ -12,6 +15,10 @@ spec:
   selector:
     matchLabels:
       {{- include "eno-ws.enoxml.selectorLabels" . | nindent 6 }}
+  {{- with  .Values.deploymentStrategy }}
+  strategy: 
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       {{- with .Values.enoxml.podAnnotations }}
@@ -25,9 +32,10 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "eno-ws.enoxml.serviceAccountName" . }}
+     {{- with .Values.enoxml.podSecurityContext }} # S'il y a des values, ça écrit "securityContext:" et la suite, sinon ça ne met rien 
       securityContext:
-        {{- toYaml .Values.enoxml.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -36,16 +44,24 @@ spec:
           imagePullPolicy: {{ .Values.enoxml.image.pullPolicy }}
           env:
             - name: FR_INSEE_ENOWS_API_SCHEME
-              value: https
+              value: {{ include "render-value" (dict "value" .Values.enoxml.env.FR_INSEE_ENOWS_API_SCHEME "context" $basePath ) | quote }}
           # ça ne marche pas si on met le chemin direct, d'où le "range"
           {{- range .Values.enoxml.ingress.hosts}}
             - name: FR_INSEE_ENOWS_API_HOST
-              value: {{ .host }}
+              value: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
           {{- end}}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.enoxml.container.port }}
               protocol: TCP
+          {{- with .Values.enoxml.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.enoxml.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.enoxml.resources | nindent 12 }}
       {{- with .Values.enoxml.nodeSelector }}

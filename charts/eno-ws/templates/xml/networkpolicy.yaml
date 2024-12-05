@@ -1,0 +1,11 @@
+{{- if .Values.enoxml.networkPolicy.enabled -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.enoxml.networkPolicy.config.name }}
+spec:
+  {{- with .Values.enoxml.networkPolicy.config.spec }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end -}}

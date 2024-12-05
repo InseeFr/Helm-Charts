@@ -1,17 +1,17 @@
-{{- if .Values.enojava.enabled }}
+{{- if .Values.ui.enabled }}
 {{- $basePath := . }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "eno-ws.enojava.fullname" . }}
+  name: {{ template "orbeon-existdb.ui.fullname" . }}
   labels:
-    app: {{ template "eno-ws.enojava.name" . }}
+    app: {{ template "orbeon-existdb.ui.name" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-{{- if .Values.enojava.env }}
-{{- range $key, $value := .Values.enojava.env }}
+{{- if .Values.ui.env }}
+{{- range $key, $value := .Values.ui.env }}
   {{ $key }}: {{ include "render-value" ( dict "value" $value "context" $basePath ) | quote }}
 {{- end -}}
 {{- end -}}
