@@ -1752,6 +1752,21 @@ entries:
   ui-api-db:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-12-05T09:59:47.29976707Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.1
+    description: A Helm chart for ui-api-db API, UI and DB
+    digest: 0f31ce58ff9cd34a2e8801c734c29de3b0a54d42283210a287a3bf225ee4b21d
+    name: ui-api-db
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.9/ui-api-db-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-12-05T09:20:09.444881026Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1765,4 +1780,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.8/ui-api-db-0.1.8.tgz
     version: 0.1.8
-generated: "2024-12-05T09:23:08.826215124Z"
+generated: "2024-12-05T09:59:47.299933632Z"
