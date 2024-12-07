@@ -1,7 +1,9 @@
 ## All minimal values are defined in global
 global:
   scheme: http
-  maintenance: maintenance-conception.example.org
+  maintenance:
+    enabled: false
+    redirectTo: maintenance-conception.example.org
   pogues:
     ui: conception-questionnaire.example.org
     api: api-conception-questionnaire.example.org
@@ -37,6 +39,7 @@ pogues:
       enabled: false
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.pogues.ui }}"
           paths:
@@ -58,6 +61,7 @@ pogues:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.pogues.api }}"
           paths:
@@ -120,6 +124,7 @@ eno-ws:
       enabled: false
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.enoWS.enoxml }}"
           paths:
@@ -140,6 +145,7 @@ eno-ws:
       enabled: false
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.enoWS.enojava }}"
           paths:
@@ -156,6 +162,7 @@ public-enemy:
       enabled: false
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.publicEnemy.ui }}"
           paths:
@@ -183,6 +190,7 @@ public-enemy:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.publicEnemy.api }}"
           paths:
@@ -225,6 +233,7 @@ queen:
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.queen.ui }}"
           paths:
@@ -251,6 +260,7 @@ orbeon-existdb:
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.stromaeV1.api }}"
           paths:
@@ -266,6 +276,7 @@ orbeon-existdb:
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.stromaeV1.ui }}"
           paths:
@@ -288,6 +299,7 @@ stromae-v2:
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.stromaeV2.ui }}"
           paths:
@@ -314,6 +326,7 @@ stromae-v3:
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
         - host: "{{ .Values.global.stromaeV3.ui }}"
           paths:
@@ -351,6 +364,7 @@ api-questionnaires:
       annotations:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
 
     env:
       SPRING_PROFILES_ACTIVE: dev
