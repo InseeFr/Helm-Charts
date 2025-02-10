@@ -1043,6 +1043,16 @@ entries:
   orbeon-existdb:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-02-10T10:32:18.217571299Z"
+    description: A Helm chart for Kubernetes
+    digest: f190b985b88ecde8e1f7b02f3dac83b5221d426889984dffd6e73cfc94c4ebac
+    name: orbeon-existdb
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/orbeon-existdb-0.1.16/orbeon-existdb-0.1.16.tgz
+    version: 0.1.16
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-12-05T09:20:09.236710893Z"
     description: A Helm chart for Kubernetes
     digest: baedb3c8aa763c15fc08883c18e1d918ab12e5f78d56db451e6105105dbba855
@@ -1888,4 +1898,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.8/ui-api-db-0.1.8.tgz
     version: 0.1.8
-generated: "2024-12-07T15:30:10.777685073Z"
+generated: "2025-02-10T10:32:18.217847222Z"
