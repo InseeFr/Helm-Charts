@@ -4,7 +4,7 @@ description: A Helm chart for Bowie
 
 type: application
 
-version: 0.3.2
+version: 0.3.3
 
 sources:
   - "https://github.com/InseeFr/Pogues"
@@ -51,4 +51,4 @@ dependencies:
     version: 0.2.7
   - name: orbeon-existdb
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.1.15
+    version: 0.1.16
