@@ -7,6 +7,8 @@ global:
   pogues:
     ui: conception-questionnaire.example.org
     api: api-conception-questionnaire.example.org
+  poguesBeta:
+    ui: conception-questionnaire-beta.example.org
   enoWS:
     enojava: api-generation-questionnaires.example.org
     enoxml: api-eno.example.org
@@ -19,8 +21,6 @@ global:
   stromaeV1:
     ui: visualisation-questionnaires-web-v1.example.org
     api: api-visualisation-questionnaires-web-v1.example.org
-  stromaeV2:
-    ui: visualisation-questionnaires-web-v2.example.org
   stromaeV3:
     ui: visualisation-questionnaires-web-v3.example.org
   metadata:
@@ -87,11 +87,6 @@ pogues:
       APPLICATION_QUEEN_VIS_QUERYPARAMS_QUESTIONNAIRE: questionnaire
       APPLICATION_QUEEN_VIS_QUERYPARAMS_NOMENCLATURES: nomenclature
 
-      APPLICATION_STROMAEV2_VIS_HOST: "{{ .Values.global.scheme }}://{{ .Values.global.stromaeV2.ui }}"
-      APPLICATION_STROMAEV2_VIS_PATH: /visualize
-      APPLICATION_STROMAEV2_VIS_QUERYPARAMS_QUESTIONNAIRE: questionnaire
-      APPLICATION_STROMAEV2_VIS_QUERYPARAMS_NOMENCLATURES: nomenclature
-
       APPLICATION_STROMAEV3_VIS_HOST: "{{ .Values.global.scheme }}://{{ .Values.global.stromaeV3.ui }}"
       APPLICATION_STROMAEV3_VIS_PATH: /visualize
       APPLICATION_STROMAEV3_VIS_QUERYPARAMS_QUESTIONNAIRE: source
@@ -112,6 +107,32 @@ pogues:
       FEATURE_OIDC_ROLECLAIM: ""
       FEATURE_OIDC_STAMPCLAIM: ""
       FEATURE_OIDC_USERNAMECLAIM: ""
+  postgresql:
+    enabled: false
+
+pogues-beta:
+  ui:
+    enabled: false
+    ingress:
+      enabled: false
+      annotations:
+        cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
+      hosts:
+        - host: "{{ .Values.global.poguesBeta.ui }}"
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - "{{ .Values.global.poguesBeta.ui }}"
+    env:
+      VITE_POGUES_LEGACY: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.ui }}"
+      VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
+      VITE_OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
+      VITE_OIDC_CLIENT_ID: ""
+  api:
+    enabled: false
   postgresql:
     enabled: false
 
@@ -225,6 +246,7 @@ public-enemy:
       FEATURE_OIDC_ROLECLAIM: ""
   postgresql:
     enabled: false
+
 queen:
   ui:
     enabled: false
@@ -291,33 +313,6 @@ orbeon-existdb:
       STROMAE_HOST: "{{ .Values.global.scheme }}://{{ .Values.global.stromaeV1.ui }}/rmesstromae"
       URL_LOGOUT: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.ui }}"
 
-stromae-v2:
-  ui:
-    enabled: false
-    ingress:
-      enabled: false
-      annotations:
-        cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
-      hosts:
-        - host: "{{ .Values.global.stromaeV2.ui }}"
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - hosts:
-            - "{{ .Values.global.stromaeV2.ui }}"
-
-    env:
-      REACT_APP_AUTH_TYPE: none
-      REACT_APP_VIZUALIZE_ENABLED: true
-      REACT_APP_SURVEY_API_BASE_URL: "{{ .Values.global.scheme }}://{{ .Values.global.apiQuestionnaires }}"
-  api:
-    enabled: false
-  postgresql:
-    enabled: false
-
 stromae-v3:
   ui:
     enabled: false
@@ -372,7 +367,6 @@ api-questionnaires:
       SERVER_FORWARDHEADERSSTRATEGY: framework
       APPLICATION_CORSORIGINS:
         "{{ .Values.global.scheme }}://{{ .Values.global.apiQuestionnaires }},
-        {{ .Values.global.scheme }}://{{ .Values.global.stromaeV2.ui }},
         {{ .Values.global.scheme }}://{{ .Values.global.stromaeV3.ui }},
         {{ .Values.global.scheme }}://{{ .Values.global.queen.ui }}"
       APPLICATION_TEMPFOLDER: /opt/app/temp-files

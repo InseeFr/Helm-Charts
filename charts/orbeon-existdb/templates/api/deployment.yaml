@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       {{- include "orbeon-existdb.api.selectorLabels" . | nindent 6 }}
-  {{- with  .Values.deploymentStrategy }}
+  {{- with  .Values.api.deploymentStrategy }}
   strategy: 
     {{- toYaml . | nindent 4 }}
   {{- end }}

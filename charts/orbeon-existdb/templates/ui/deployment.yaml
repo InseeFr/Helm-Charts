@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels:
       {{- include "orbeon-existdb.ui.selectorLabels" . | nindent 6 }}
-  {{- with  .Values.deploymentStrategy }}
+  {{- with  .Values.ui.deploymentStrategy }}
   strategy: 
     {{- toYaml . | nindent 4 }}
   {{- end }}

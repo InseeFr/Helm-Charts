@@ -2,14 +2,14 @@
 {{- $basePath := . }}
 {{- $fullNameApi := include "orbeon-existdb.api.fullname" . -}}
 {{- $apiSvcPort := .Values.api.service.port -}}
-{{- if and .Values.api.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+{{- if and .Values.api.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.Version)) }}
   {{- if not (hasKey .Values.api.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.api.ingress.annotations "kubernetes.io/ingress.class" .Values.uiingress.className}}
   {{- end }}
 {{- end }}
-{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version -}}
 apiVersion: networking.k8s.io/v1
-{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.Version -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
@@ -24,7 +24,7 @@ metadata:
     {{- include "render-value" (dict "value" . "context" $basePath ) | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.api.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  {{- if and .Values.api.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.Version) }}
   ingressClassName: {{ .Values.api.ingress.className }}
   {{- end }}
   {{- if .Values.api.ingress.tls }}
@@ -44,11 +44,11 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.Version) }}
             pathType: {{ .pathType }}
             {{- end }}
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.Version }}
               service:
                 name: {{ $fullNameApi }}
                 port:
