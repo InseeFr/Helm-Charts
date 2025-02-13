@@ -47,6 +47,59 @@ entries:
   bowie:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-02-13T14:29:25.899099019Z"
+    dependencies:
+    - alias: pogues
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.9
+    - alias: pogues-legacy
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.9
+    - alias: public-enemy
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.9
+    - alias: queen
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.9
+    - alias: stromae-v3
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.9
+    - alias: api-questionnaires
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.9
+    - name: eno-ws
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.7
+    - name: orbeon-existdb
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.1.16
+    description: A Helm chart for Bowie
+    digest: 6f43349e698f3d14b80d7a4775b9004b85c4cb8b644c9538377a90cb0d9b3559
+    name: bowie
+    sources:
+    - https://github.com/InseeFr/Pogues
+    - https://github.com/InseeFr/Pogues-Back-Office
+    - https://github.com/InseeFr/Eno
+    - https://github.com/InseeFr/Eno-WS
+    - https://github.com/InseeFr/Public-Enemy
+    - https://github.com/InseeFr/Public-Enemy-Back-Office
+    - https://github.com/InseeFr/Drama-Queen
+    - https://github.com/InseeFr/Stromae/tree/v1-orbeon-2022
+    - https://github.com/InseeFr/Stromae-db
+    - https://github.com/InseeFrLab/stromae-dsfr
+    - https://github.com/InseeFr/Queen-Back-Office
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/bowie-0.3.4/bowie-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-02-10T10:32:59.873593513Z"
     dependencies:
     - alias: pogues
@@ -1951,4 +2004,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.8/ui-api-db-0.1.8.tgz
     version: 0.1.8
-generated: "2025-02-10T10:32:59.873802445Z"
+generated: "2025-02-13T14:29:25.899314912Z"
