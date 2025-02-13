@@ -7,8 +7,8 @@ global:
   pogues:
     ui: conception-questionnaire.example.org
     api: api-conception-questionnaire.example.org
-  poguesBeta:
-    ui: conception-questionnaire-beta.example.org
+  poguesLegacy:
+    ui: conception-questionnaire-legacy.example.org
   enoWS:
     enojava: api-generation-questionnaires.example.org
     enoxml: api-eno.example.org
@@ -49,10 +49,10 @@ pogues:
         - hosts:
             - "{{ .Values.global.pogues.ui }}"
     env:
-      API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
-      PUBLIC_ENEMY_URL: "{{ .Values.global.publicEnemy.ui }}"
-      OIDC_AUTHORITY: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
-      OIDC_CLIENT_ID: ""
+      VITE_POGUES_LEGACY: "{{ .Values.global.scheme }}://{{ .Values.global.poguesLegacy.ui }}"
+      VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
+      VITE_OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
+      VITE_OIDC_CLIENT_ID: ""
   api:
     enabled: false
     ingress:
@@ -110,7 +110,7 @@ pogues:
   postgresql:
     enabled: false
 
-pogues-beta:
+pogues-legacy:
   ui:
     enabled: false
     ingress:
@@ -119,18 +119,18 @@ pogues-beta:
         cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
         nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
       hosts:
-        - host: "{{ .Values.global.poguesBeta.ui }}"
+        - host: "{{ .Values.global.poguesLegacy.ui }}"
           paths:
             - path: /
               pathType: ImplementationSpecific
       tls:
         - hosts:
-            - "{{ .Values.global.poguesBeta.ui }}"
+            - "{{ .Values.global.poguesLegacy.ui }}"
     env:
-      VITE_POGUES_LEGACY: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.ui }}"
-      VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
-      VITE_OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
-      VITE_OIDC_CLIENT_ID: ""
+      API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
+      PUBLIC_ENEMY_URL: "{{ .Values.global.publicEnemy.ui }}"
+      OIDC_AUTHORITY: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
+      OIDC_CLIENT_ID: ""
   api:
     enabled: false
   postgresql:
