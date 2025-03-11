@@ -23,7 +23,8 @@ ui:
     # If not set and create is true, a name is generated using the fullname template
     name: ""
 
-  # podAnnotations: {} need to be injected in deployment-ui
+  podAnnotations: {}
+  # need to be injected in deployment-ui
 
   podSecurityContext:
     {}
@@ -37,6 +38,10 @@ ui:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
+
+  podAnnotationsLabels:
+    {}
+    # comment
 
   service:
     port: 80
@@ -141,7 +146,8 @@ api:
     # successThreshold: 1
     # timeoutSeconds: 4
 
-  # podAnnotations: {} need to be injected in deployment-api
+  podAnnotations: {}
+  # need to be injected in deployment-api
 
   podSecurityContext:
     {}
@@ -155,6 +161,8 @@ api:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
+
+  podAnnotationsLabels: {}
 
   service:
     port: 80

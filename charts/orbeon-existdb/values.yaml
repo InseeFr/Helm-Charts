@@ -8,6 +8,12 @@ ui:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
+  deploymentAnnotations: {}
+  deploymentStrategy: {}
+  podAnnotations: {}
+  podAnnotationsLabels: {}
+  imagePullSecrets: {}
+
   service:
     port: 80
     type: ClusterIP
@@ -55,6 +61,7 @@ ui:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+  resources: {}
 
   ingress:
     enabled: false
@@ -84,6 +91,12 @@ api:
       size: 1Gi
     logs:
       size: 10Mi
+
+  deploymentAnnotations: {}
+  deploymentStrategy: {}
+  podAnnotations: {}
+  podAnnotationsLabels: {}
+  imagePullSecrets: {}
 
   image:
     repository: inseefr/stromae-db
@@ -115,6 +128,8 @@ api:
   affinity: {}
 
   env: {}
+
+  resources: {}
 
   podSecurityContext: {}
   # fsGroup: 2000

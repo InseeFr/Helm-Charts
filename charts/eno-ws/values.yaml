@@ -29,6 +29,8 @@ enoxml:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+  podAnnotationsLabels: {}
+
   service:
     port: 80
     type: ClusterIP
@@ -111,6 +113,8 @@ enojava:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
+
+  podAnnotationsLabels: {}
 
   service:
     port: 80

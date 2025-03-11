@@ -29,6 +29,9 @@ spec:
       {{- end }}
       labels:
         {{- include "eno-ws.enojava.selectorLabels" . | nindent 8 }}
+        {{- with .Values.enojava.podAnnotationsLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       {{- with .Values.enojava.imagePullSecrets }}
       imagePullSecrets:
