@@ -780,6 +780,15 @@ entries:
     version: 0.1.0
   eno-ws:
   - apiVersion: v2
+    created: "2025-03-11T13:56:34.335009126Z"
+    description: A Eno-WS Helm chart for Kubernetes
+    digest: 4dd1e636623c2f35b48042eb5da6370dbbd7cf5d2faffe5fbce8c5d388012654
+    name: eno-ws
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/eno-ws-0.3.0/eno-ws-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     created: "2024-12-05T09:20:09.048424475Z"
     description: A Eno-WS Helm chart for Kubernetes
     digest: 8721a9348337532f4032ce56dc643a332a26b478b65532e8c55d09bd29157cf8
@@ -1147,6 +1156,16 @@ entries:
     - https://github.com/InseeFr/Helm-Charts/releases/download/my-surveys-0.0.1/my-surveys-0.0.1.tgz
     version: 0.0.1
   orbeon-existdb:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-03-11T13:56:34.533904069Z"
+    description: A Helm chart for Kubernetes
+    digest: 1b4b2f42b5c8b3ad4364acf093ca2a30656143ded9b254a1d3643c7449a031e2
+    name: orbeon-existdb
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/orbeon-existdb-0.2.0/orbeon-existdb-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2025-02-10T10:32:18.217571299Z"
@@ -1976,6 +1995,21 @@ entries:
   ui-api-db:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-03-11T13:56:34.711265635Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.1
+    description: A Helm chart for ui-api-db API, UI and DB
+    digest: 32d76e8b9073eff0e59b732fe15cf1df22d879d0160e37c84b83a5f37ac8aab3
+    name: ui-api-db
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.2.0/ui-api-db-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-12-05T09:59:47.29976707Z"
     dependencies:
     - condition: postgresql.enabled
@@ -2004,4 +2038,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.8/ui-api-db-0.1.8.tgz
     version: 0.1.8
-generated: "2025-02-13T14:29:25.899314912Z"
+generated: "2025-03-11T13:56:34.711410585Z"
