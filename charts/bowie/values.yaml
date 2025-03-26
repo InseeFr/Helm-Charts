@@ -127,10 +127,10 @@ pogues-legacy:
         - hosts:
             - "{{ .Values.global.poguesLegacy.ui }}"
     env:
-      API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
-      PUBLIC_ENEMY_URL: "{{ .Values.global.publicEnemy.ui }}"
-      OIDC_AUTHORITY: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
-      OIDC_CLIENT_ID: ""
+      VITE_CUSTOMIZE_URL: "{{ .Values.global.scheme }}://{{ .Values.global.publicEnemy.ui }}"
+      VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
+      VITE_OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
+      VITE_OIDC_CLIENT_ID: ""
   api:
     enabled: false
   postgresql:
