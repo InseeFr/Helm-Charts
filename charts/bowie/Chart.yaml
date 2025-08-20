@@ -4,19 +4,18 @@ description: A Helm chart for Bowie
 
 type: application
 
-version: 0.4.3
+version: 0.7.0
 
 sources:
   - "https://github.com/InseeFr/Pogues"
   - "https://github.com/InseeFr/Pogues-Back-Office"
   - "https://github.com/InseeFr/Eno"
   - "https://github.com/InseeFr/Eno-WS"
-  - "https://github.com/InseeFr/Public-Enemy"
   - "https://github.com/InseeFr/Public-Enemy-Back-Office"
   - "https://github.com/InseeFr/Drama-Queen"
   - "https://github.com/InseeFr/Stromae/tree/v1-orbeon-2022"
   - "https://github.com/InseeFr/Stromae-db"
-  - "https://github.com/InseeFrLab/stromae-dsfr"
+  - "https://github.com/InseeFr/stromae-dsfr"
   - "https://github.com/InseeFr/Queen-Back-Office"
 
 appVersion: "1.16.0"
@@ -35,17 +34,25 @@ dependencies:
     repository: https://inseefr.github.io/Helm-Charts
     version: 0.2.0
   - name: ui-api-db
-    alias: queen
-    version: 0.2.0
+    alias: walking-papers
     repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.0
+  - name: ui-api-db
+    alias: queen
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.0
   - name: ui-api-db
     alias: stromae-v3
-    version: 0.2.0
     repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.0
   - name: ui-api-db
     alias: api-questionnaires
-    version: 0.2.0
     repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.0
+  - name: ui-api-db
+    alias: registry
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.0
   - name: eno-ws
     repository: https://inseefr.github.io/Helm-Charts
     version: 0.3.0

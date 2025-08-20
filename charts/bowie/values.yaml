@@ -23,6 +23,10 @@ global:
     api: api-visualisation-questionnaires-web-v1.example.org
   stromaeV3:
     ui: visualisation-questionnaires-web-v3.example.org
+  walkingPapers:
+    ui: visualisation-saisie-questionnaires-papier.example.org
+  registry:
+    api: api-registre-filiere.example.org
   metadata:
     ddias: ddias.example.org
     magma: magma.example.org
@@ -53,6 +57,8 @@ pogues:
       VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
       VITE_OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
       VITE_OIDC_CLIENT_ID: ""
+      VITE_OIDC_ENABLED: false
+      VITE_PERSONALIZATION_URL: "{{ .Values.global.scheme }}://{{ .Values.global.publicEnemy.api }}/api"
   api:
     enabled: false
     ingress:
@@ -131,6 +137,7 @@ pogues-legacy:
       VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.api }}/api"
       VITE_OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
       VITE_OIDC_CLIENT_ID: ""
+      VITE_OIDC_ENABLED: false
   api:
     enabled: false
   postgresql:
@@ -177,32 +184,6 @@ eno-ws:
             - "{{ .Values.global.enoWS.enojava }}"
 
 public-enemy:
-  ui:
-    enabled: false
-    ingress:
-      enabled: false
-      annotations:
-        cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
-        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
-      hosts:
-        - host: "{{ .Values.global.publicEnemy.ui }}"
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - hosts:
-            - "{{ .Values.global.publicEnemy.ui }}"
-
-    env:
-      VITE_API_URL: "{{ .Values.global.scheme }}://{{ .Values.global.publicEnemy.api }}/api"
-      VITE_ORCHESTRATOR_URL: "{{ .Values.global.scheme }}://{{ .Values.global.stromaeV3.ui }}"
-      VITE_POGUES_URL: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.ui }}"
-      VITE_DOCUMENTATION_URL: "{{ .Values.global.scheme }}://inseefr.github.io/Bowie/public-enemy/guide/"
-      VITE_LOCALE: fr
-      VITE_AUTH_TYPE: none
-      VITE_AUTH_URL: "{{ .Values.global.auth.server }}"
-      VITE_REALM: "{{ .Values.global.auth.realm }}"
-      VITE_CLIENT_ID: ""
   api:
     enabled: false
     ingress:
@@ -221,7 +202,7 @@ public-enemy:
         - hosts:
             - "{{ .Values.global.publicEnemy.api }}"
     env:
-      APPLICATION_CORSORIGINS: "{{ .Values.global.scheme }}://{{ .Values.global.publicEnemy.ui }},http://localhost*"
+      APPLICATION_CORSORIGINS: "{{ .Values.global.scheme }}://{{ .Values.global.pogues.ui }}"
       # http request directy with service (without using ingress), because two apps are in the same namespace
       APPLICATION_POGUES_URL: "http://{{ .Release.Name  }}-pogues-api"
       # http request directy with service (without using ingress), because two apps are in the same namespace
@@ -362,22 +343,44 @@ api-questionnaires:
         nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
 
     env:
-      SPRING_PROFILES_ACTIVE: dev
-      LOGGING_FILE_NAME: /opt/app/queen.log
-      SERVER_FORWARDHEADERSSTRATEGY: framework
       APPLICATION_CORSORIGINS:
         "{{ .Values.global.scheme }}://{{ .Values.global.apiQuestionnaires }},
         {{ .Values.global.scheme }}://{{ .Values.global.stromaeV3.ui }},
         {{ .Values.global.scheme }}://{{ .Values.global.queen.ui }}"
-      APPLICATION_TEMPFOLDER: /opt/app/temp-files
-      SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
+      APPLICATION_TEMPFOLDER: /temp
       SPRING_LIQUIBASE_ENABLED: true
+      # ToDo: enable OIDC
       FEATURE_OIDC_ENABLED: false
       FEATURE_SWAGGER_ENABLED: true
-      FEATURE_PILOTAGE_ENABLE: false
+      FEATURE_PILOTAGE_ENABLED: false
       FEATURE_DATASET_LOADONSTART: true
-      FEATURE_DATASET_DISPLAYENDPOINT: true
+      # ToDo: delete this (false by default, it's useless)
       FEATURE_INTERVIEWERMODE_ENABLED: true
+  postgresql:
+    enabled: false
+
+registry:
+  ui:
+    enabled: false
+  api:
+    enabled: false
+    ingress:
+      enabled: false
+      hosts:
+        - host: "{{ .Values.global.registry.api }}"
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - "{{ .Values.global.registry.api }}"
+
+      annotations:
+        cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
+    env:
+
   postgresql:
     enabled: false
 
@@ -385,3 +388,27 @@ api-questionnaires:
 # we need postgresql in deps of meta chart, but we have to disabled the lost postgresql instance
 postgresql:
   enabled: false
+
+walking-papers:
+  ui:
+    enabled: false
+    ingress:
+      enabled: false
+      annotations:
+        cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
+      hosts:
+        - host: "{{ .Values.global.walkingPapers.ui }}"
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - "{{ .Values.global.walkingPapers.ui }}"
+    env:
+
+  api:
+    enabled: false
+  postgresql:
+    enabled: false
