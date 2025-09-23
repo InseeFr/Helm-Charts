@@ -27,6 +27,7 @@ global:
     ui: visualisation-saisie-questionnaires-papier.example.org
   registry:
     api: api-registre-filiere.example.org
+  lunaticPdfApi: api-generation-recap-pdf.example.org
   metadata:
     ddias: ddias.example.org
     magma: magma.example.org
@@ -206,6 +207,8 @@ public-enemy:
       # http request directy with service (without using ingress), because two apps are in the same namespace
       APPLICATION_POGUES_URL: "http://{{ .Release.Name  }}-pogues-api"
       # http request directy with service (without using ingress), because two apps are in the same namespace
+      APPLICATION_LUNATICPDFAPI_URL: "http://{{ .Release.Name  }}-lunatic-pdf-api"
+      # http request directy with service (without using ingress), because two apps are in the same namespace
       APPLICATION_ENO_URL: "http://{{ .Release.Name }}-eno-ws-java"
       # http request directy with service (without using ingress), because two apps are in the same namespace
       APPLICATION_QUEEN_URL: "http://{{ .Release.Name }}-api-questionnaires-api"
@@ -380,7 +383,37 @@ registry:
         nginx.ingress.kubernetes.io/proxy-body-size: "20m"
         nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
     env:
+  postgresql:
+    enabled: false
 
+lunatic-pdf:
+  ui:
+    enabled: false
+  api:
+    enabled: false
+    ingress:
+      enabled: false
+      hosts:
+        - host: "{{ .Values.global.lunaticPdfApi }}"
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - "{{ .Values.global.lunaticPdfApi }}"
+
+      annotations:
+        cert-manager.io/cluster-issuer: "{{ .Values.global.certificat.manager }}"
+        nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+        nginx.ingress.kubernetes.io/rewrite-target: "{{- if .Values.global.maintenance.enabled }}{{ .Values.global.maintenance.redirectTo }}{{- end }}"
+    env:
+      APPLICATION_HOST: "{{ .Values.global.lunaticPdfApi }}"
+      APPLICATION_SCHEME: "{{ .Values.global.scheme }}"
+      NODE_OPTIONS: --use-openssl-ca
+      # compute domains of pdfApi -> pdf-api.test.example.org -> .example.org is trust domains
+      TRUST_URI_DOMAINS: '{{ include "bowie.extract-domain-suffix" .Values.global.lunaticPdfApi }}'
+      OIDC_ENABLED: false
+      OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
   postgresql:
     enabled: false
 

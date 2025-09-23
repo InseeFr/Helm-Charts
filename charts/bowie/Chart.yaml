@@ -4,7 +4,7 @@ description: A Helm chart for Bowie
 
 type: application
 
-version: 0.7.0
+version: 0.9.5
 
 sources:
   - "https://github.com/InseeFr/Pogues"
@@ -24,38 +24,42 @@ dependencies:
   - name: ui-api-db
     alias: pogues
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: pogues-legacy
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: public-enemy
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: walking-papers
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: queen
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: stromae-v3
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: api-questionnaires
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
   - name: ui-api-db
     alias: registry
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.2
+  - name: ui-api-db
+    alias: lunatic-pdf
+    repository: https://inseefr.github.io/Helm-Charts
+    version: 0.2.2
   - name: eno-ws
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.3.0
+    version: 0.3.1
   - name: orbeon-existdb
     repository: https://inseefr.github.io/Helm-Charts
-    version: 0.2.0
+    version: 0.2.1
