@@ -50,7 +50,7 @@ spec:
           {{- if .Values.enojava.env }}
           envFrom:
             - configMapRef:
-                name: {{ template "eno-ws.enojava.fullname" . }}
+                name: {{ template "eno-ws.enojava.fullname" . }}-configmap
           {{- end }}
           ports:
             - name: http

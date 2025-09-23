@@ -46,7 +46,7 @@ spec:
           {{- if and .Values.ui.enabled .Values.ui.env }}
           envFrom:
             - configMapRef:
-                name: {{ template "orbeon-existdb.ui.fullname" . }}
+                name: {{ template "orbeon-existdb.ui.fullname" . }}-configmap
           {{- end }}
           ports:
             - name: http

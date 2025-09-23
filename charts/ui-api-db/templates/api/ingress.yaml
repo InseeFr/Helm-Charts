@@ -1,15 +1,14 @@
 {{- if .Values.api.ingress.enabled -}}
-{{- $basePath := . }}
 {{- $fullNameApi := include "ui-api-db.api.fullname" . -}}
 {{- $apiSvcPort := .Values.api.service.port -}}
-{{- if and .Values.api.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+{{- if and .Values.api.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.Version)) }}
   {{- if not (hasKey .Values.api.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.api.ingress.annotations "kubernetes.io/ingress.class" .Values.api.ingress.className}}
   {{- end }}
 {{- end }}
-{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version -}}
 apiVersion: networking.k8s.io/v1
-{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.Version -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
@@ -21,10 +20,10 @@ metadata:
     {{- include "ui-api-db.api.labels" . | nindent 4 }}
   {{- with .Values.api.ingress.annotations }}
   annotations:
-    {{- include "render-value" (dict "value" . "context" $basePath ) | nindent 4 }}
+    {{- include "render-value" (dict "value" . "context" $) | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.api.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  {{- if and .Values.api.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.Version) }}
   ingressClassName: {{ .Values.api.ingress.className }}
   {{- end }}
   {{- if .Values.api.ingress.tls }}
@@ -32,23 +31,23 @@ spec:
     {{- range .Values.api.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ include "render-value" (dict "value" . "context" $basePath ) | quote }}
+        - {{ include "render-value" (dict "value" . "context" $) | quote }}
         {{- end }}
       secretName: {{ .secretName | default (printf "%s-cert" $fullNameApi) }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.api.ingress.hosts }}
-    - host: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
+    - host: {{ include "render-value" (dict "value" .host "context" $) | quote }}
       http:
         paths:
           {{- range .paths }}
           - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.Version) }}
             pathType: {{ .pathType }}
             {{- end }}
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.Version }}
               service:
                 name: {{ $fullNameApi }}
                 port:

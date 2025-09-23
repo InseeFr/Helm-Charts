@@ -1,5 +1,4 @@
 {{- if and .Values.ui.enabled .Values.ui.ingress.enabled -}}
-{{- $basePath := . }}
 {{- $fullName := include "ui-api-db.ui.fullname" . -}}
 {{- $svcPort := .Values.ui.service.port -}}
 {{- if and .Values.ui.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
@@ -21,7 +20,7 @@ metadata:
     {{- include "ui-api-db.ui.labels" . | nindent 4 }}
   {{- with .Values.ui.ingress.annotations }}
   annotations:
-    {{- include "render-value" (dict "value" . "context" $basePath ) | nindent 4 }}
+    {{- include "render-value" (dict "value" . "context" $) | nindent 4 }}
   {{- end }}
 spec:
   {{- if and .Values.ui.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
@@ -32,14 +31,14 @@ spec:
     {{- range .Values.ui.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ include "render-value" (dict "value" . "context" $basePath ) | quote }}
+        - {{ include "render-value" (dict "value" . "context" $) | quote }}
         {{- end }}
       secretName: {{ .secretName | default (printf "%s-cert" $fullName) }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ui.ingress.hosts }}
-    - host: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
+    - host: {{ include "render-value" (dict "value" .host "context" $) | quote }}
       http:
         paths:
           {{- range .paths }}

@@ -23,7 +23,7 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/ui/configmap.yaml") . | sha256sum }}
       {{- with .Values.ui.podAnnotations }}
-      {{- toYaml . | nindent 8 }}
+      {{- include "render-value" (dict "value" . "context" $ ) | nindent 8 }}
       {{- end }}
       labels:
         {{- include "ui-api-db.ui.selectorLabels" . | nindent 8 }}
@@ -48,7 +48,7 @@ spec:
           {{- if and .Values.ui.env .Values.ui.enabled }}
           envFrom:
             - configMapRef:
-                name: {{ template "ui-api-db.ui.fullname" . }}
+                name: {{ template "ui-api-db.ui.fullname" . }}-configmap
           {{- end }}
           ports:
             - name: http

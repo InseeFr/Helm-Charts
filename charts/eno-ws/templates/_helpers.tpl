@@ -1,14 +1,23 @@
 {{/*
-Expand the name of the chart.
+Renders a value that contains template perhaps with scope if the scope is present.
+Usage:
+{{ include "common.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $ ) }}
+{{ include "common.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $ "scope" $app ) }}
+https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_tplvalues.tpl
 */}}
-
-{{ define "render-value" }}
-  {{- if kindIs "string" .value }}
-    {{- tpl .value .context }}
+{{- define "render-value" -}}
+{{- $value := typeIs "string" .value | ternary .value (.value | toYaml) }}
+{{- if contains "{{" (toJson .value) }}
+  {{- if .scope }}
+      {{- tpl (cat "{{- with $.RelativeScope -}}" $value "{{- end }}") (merge (dict "RelativeScope" .scope) .context) }}
   {{- else }}
-    {{- tpl (.value | toYaml) .context }}
+    {{- tpl $value .context }}
   {{- end }}
+{{- else }}
+    {{- $value }}
 {{- end }}
+{{- end -}}
+
 
 {{- define "eno-ws.enoxml.name" -}}
 {{- default .Values.enoxml.nameOverride | default (printf "%s-enoxml" .Chart.Name )}}

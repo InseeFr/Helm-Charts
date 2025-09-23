@@ -1,5 +1,4 @@
 {{- if .Values.api.ingress.enabled -}}
-{{- $basePath := . }}
 {{- $fullNameApi := include "orbeon-existdb.api.fullname" . -}}
 {{- $apiSvcPort := .Values.api.service.port -}}
 {{- if and .Values.api.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.Version)) }}
@@ -21,7 +20,7 @@ metadata:
     {{- include "orbeon-existdb.api.labels" . | nindent 4 }}
   {{- with .Values.api.ingress.annotations }}
   annotations:
-    {{- include "render-value" (dict "value" . "context" $basePath ) | nindent 4 }}
+    {{- include "render-value" (dict "value" . "context" $) | nindent 4 }}
   {{- end }}
 spec:
   {{- if and .Values.api.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.Version) }}
@@ -32,14 +31,14 @@ spec:
     {{- range .Values.api.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ include "render-value" (dict "value" . "context" $basePath ) | quote }}
+        - {{ include "render-value" (dict "value" . "context" $) | quote }}
         {{- end }}
       secretName: {{ .secretName | default (printf "%s-cert" $fullNameApi) }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.api.ingress.hosts }}
-    - host: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
+    - host: {{ include "render-value" (dict "value" .host "context" $) | quote }}
       http:
         paths:
           {{- range .paths }}

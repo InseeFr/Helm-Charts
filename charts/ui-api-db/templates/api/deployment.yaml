@@ -79,7 +79,7 @@ spec:
           {{- if and .Values.api.env .Values.api.enabled }}
           envFrom:
             - configMapRef:
-                name: {{ template "ui-api-db.api.fullname" . }}
+                name: {{ template "ui-api-db.api.fullname" . }}-configmap
           {{- end }}
           ports:
             - name: http

@@ -1,9 +1,8 @@
 {{- if .Values.enojava.enabled }}
-{{- $basePath := . }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "eno-ws.enojava.fullname" . }}
+  name: {{ template "eno-ws.enojava.fullname" . }}-configmap
   labels:
     app: {{ template "eno-ws.enojava.name" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -12,7 +11,7 @@ metadata:
 data:
 {{- if .Values.enojava.env }}
 {{- range $key, $value := .Values.enojava.env }}
-  {{ $key }}: {{ include "render-value" ( dict "value" $value "context" $basePath ) | quote }}
+  {{ $key }}: {{ include "render-value" ( dict "value" $value "context" $ ) | quote }}
 {{- end -}}
 {{- end -}}
 {{- end -}}

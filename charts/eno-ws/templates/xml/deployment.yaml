@@ -1,5 +1,4 @@
 {{- if .Values.enoxml.enabled -}}
-{{- $basePath := . }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,11 +46,11 @@ spec:
           imagePullPolicy: {{ .Values.enoxml.image.pullPolicy }}
           env:
             - name: FR_INSEE_ENOWS_API_SCHEME
-              value: {{ include "render-value" (dict "value" .Values.enoxml.env.FR_INSEE_ENOWS_API_SCHEME "context" $basePath ) | quote }}
+              value: {{ include "render-value" (dict "value" .Values.enoxml.env.FR_INSEE_ENOWS_API_SCHEME "context" $) | quote }}
           # ça ne marche pas si on met le chemin direct, d'où le "range"
           {{- range .Values.enoxml.ingress.hosts}}
             - name: FR_INSEE_ENOWS_API_HOST
-              value: {{ include "render-value" (dict "value" .host "context" $basePath ) | quote }}
+              value: {{ include "render-value" (dict "value" .host "context" $) | quote }}
           {{- end}}
           ports:
             - name: http
