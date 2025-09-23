@@ -47,6 +47,70 @@ entries:
   bowie:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-09-23T11:20:44.078353278Z"
+    dependencies:
+    - alias: pogues
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: pogues-legacy
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: public-enemy
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: walking-papers
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: queen
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: stromae-v3
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: api-questionnaires
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: registry
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - alias: lunatic-pdf
+      name: ui-api-db
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.2
+    - name: eno-ws
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.3.1
+    - name: orbeon-existdb
+      repository: https://inseefr.github.io/Helm-Charts
+      version: 0.2.1
+    description: A Helm chart for Bowie
+    digest: b187eceb402c18ca1d00eb59dc47c2929e451cf22aea0fc72417c5e4893610cd
+    name: bowie
+    sources:
+    - https://github.com/InseeFr/Pogues
+    - https://github.com/InseeFr/Pogues-Back-Office
+    - https://github.com/InseeFr/Eno
+    - https://github.com/InseeFr/Eno-WS
+    - https://github.com/InseeFr/Public-Enemy-Back-Office
+    - https://github.com/InseeFr/Drama-Queen
+    - https://github.com/InseeFr/Stromae/tree/v1-orbeon-2022
+    - https://github.com/InseeFr/Stromae-db
+    - https://github.com/InseeFr/stromae-dsfr
+    - https://github.com/InseeFr/Queen-Back-Office
+    type: application
+    urls:
+    - https://github.com/InseeFr/Helm-Charts/releases/download/bowie-0.9.5/bowie-0.9.5.tgz
+    version: 0.9.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-08-20T12:27:10.696381132Z"
     dependencies:
     - alias: pogues
@@ -2238,4 +2302,4 @@ entries:
     urls:
     - https://github.com/InseeFr/Helm-Charts/releases/download/ui-api-db-0.1.8/ui-api-db-0.1.8.tgz
     version: 0.1.8
-generated: "2025-09-23T11:18:02.80937949Z"
+generated: "2025-09-23T11:20:44.078633505Z"
