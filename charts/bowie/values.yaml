@@ -350,7 +350,7 @@ api-questionnaires:
         "{{ .Values.global.scheme }}://{{ .Values.global.apiQuestionnaires }},
         {{ .Values.global.scheme }}://{{ .Values.global.stromaeV3.ui }},
         {{ .Values.global.scheme }}://{{ .Values.global.queen.ui }}"
-      APPLICATION_TEMPFOLDER: /temp
+      APPLICATION_TEMPFOLDER: /tmp
       SPRING_LIQUIBASE_ENABLED: true
       # ToDo: enable OIDC
       FEATURE_OIDC_ENABLED: false

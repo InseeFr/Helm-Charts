@@ -4,7 +4,7 @@ description: A Helm chart for Bowie
 
 type: application
 
-version: 0.9.5
+version: 0.9.6
 
 sources:
   - "https://github.com/InseeFr/Pogues"
