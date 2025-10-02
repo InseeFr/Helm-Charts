@@ -5,7 +5,7 @@ description: A Helm chart for ui-api-db API, UI and DB
 dependencies:
   - name: postgresql
     condition: postgresql.enabled
-    version: 15.5.1
+    version: 16.7.27
     repository: https://charts.bitnami.com/bitnami
 
 type: application
