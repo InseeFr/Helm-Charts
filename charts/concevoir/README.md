@@ -1,9 +1,9 @@
-# Bowie Helm-Chart
+# Concevoir Helm-Chart
 
-Bowie Chart is a "meta-chart".
-You can use it if you just want all services provided by bowie (All tools for design questionnaires).
+Concevoir Chart is a "meta-chart".
+You can use it if you just want all services provided by concevoir (All tools for design questionnaires).
 
-Bowie-Chart depends on the following Chart:
+Concevoir-Chart depends on the following Chart:
 
 - [ui-api-db](../ui-api-db/): Generic Chart for UI (React app), API (SpringBoot app) and DB (PostgreSQL from the chart proposed by Bitami)
 - [eno-ws](../eno-ws/): Chart which describes generation module

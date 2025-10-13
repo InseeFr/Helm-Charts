@@ -1,5 +1,5 @@
 {{/* Extract domain suffix (ex: .example.org) */}}
-{{- define "bowie.extract-domain-suffix" -}}
+{{- define "concevoir.extract-domain-suffix" -}}
     {{- $host := . -}}
     {{- $parts := splitList "." $host -}}
     {{- if ge (len $parts) 2 -}}

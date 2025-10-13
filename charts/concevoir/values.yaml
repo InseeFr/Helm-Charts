@@ -411,7 +411,7 @@ lunatic-pdf:
       APPLICATION_SCHEME: "{{ .Values.global.scheme }}"
       NODE_OPTIONS: --use-openssl-ca
       # compute domains of pdfApi -> pdf-api.test.example.org -> .example.org is trust domains
-      TRUST_URI_DOMAINS: '{{ include "bowie.extract-domain-suffix" .Values.global.lunaticPdfApi }}'
+      TRUST_URI_DOMAINS: '{{ include "concevoir.extract-domain-suffix" .Values.global.lunaticPdfApi }}'
       OIDC_ENABLED: false
       OIDC_ISSUER: "{{ .Values.global.auth.server }}/realms/{{ .Values.global.auth.realm }}"
   postgresql:
