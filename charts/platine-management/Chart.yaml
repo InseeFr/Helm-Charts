@@ -5,7 +5,7 @@ description: A Helm chart for Platine Management API, UI and DB
 dependencies:
   - name: postgresql
     condition: postgresql.enabled
-    version: 12.1.9
+    version: 18.0.16
     repository: https://charts.bitnami.com/bitnami
 
 type: application
